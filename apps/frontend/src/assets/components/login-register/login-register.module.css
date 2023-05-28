@@ -19,6 +19,16 @@
 }
 
 .text_input{
-    margin: 5px;
     text-align: center;
+    margin-bottom: 5px;
+}
+
+.button{
+    background-color: #00a9a9;
+    color: white;
+    
+    border: none;
+    border-radius: 2px;
+
+    width: 100%;
 }
