@@ -1,3 +1,5 @@
+![image](https://github.com/iridant/register_and_login/assets/10984744/64143a8d-9a33-4518-a05c-6fead378c106)
+
 # register_and_login
 A simple, in-planning registration and login panel that uses MongoDB and JWT.
 
