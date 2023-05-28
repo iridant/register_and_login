@@ -1,6 +1,10 @@
 /* Your styles goes here. */
 
 .logincontainer{
+    font-family: Arial;
+
+    line-height: 5px;
+
     background-color: #303030;
 
     text-align: center;

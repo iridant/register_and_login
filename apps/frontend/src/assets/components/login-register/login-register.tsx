@@ -30,7 +30,7 @@ class LoginRegister extends React.Component {
 
   render() {
     const {mode} = this.state;
-    var modetext = mode ? "Register" : "Log in"
+    var modetext = mode ? "Register" : "Login"
 
     return (
       <div className={styles.logincontainer}>
@@ -39,9 +39,9 @@ class LoginRegister extends React.Component {
             <hr/>
               <input className={styles.text_input} placeholder="Username" type="text"></input><br/>
               <input className={styles.text_input} placeholder="Password" type="password"></input><br/>
-              <button onClick={mode ? this.doRegister : this.doLogin} className={styles.button}>{modetext}</button>
+              <button onClick={mode ? this.doRegister : this.doLogin} className={styles.button}>Submit</button>
             <hr/>
-            <button className={styles.button} onClick={this.switchMode}>{mode ? "Switch to Log in" : "Switch to Register"}</button>
+            <button className={styles.button} onClick={this.switchMode}>{mode ? "Switch to Login" : "Switch to Register"}</button>
           </> 
       </div>
     )
