@@ -30,12 +30,11 @@ class LoginRegister extends React.Component {
 
   render() {
     const {mode} = this.state;
-    var modetext = mode ? "Register" : "Login"
 
     return (
       <div className={styles.logincontainer}>
           <>
-            <h2>{modetext}</h2>
+            <h2>{mode ? "Register" : "Login"}</h2>
             <hr/>
               <input className={styles.text_input} placeholder="Username" type="text"></input><br/>
               <input className={styles.text_input} placeholder="Password" type="password"></input><br/>
