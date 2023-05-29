@@ -5,7 +5,7 @@ A simple, in-planning registration and login panel that uses MongoDB and JWT.
 
 
 ## TODO:
-- Add functionality to endpoints
+- Add existing login session verification
 
 ## DONE:
 - Create a monorepo with Nx that contains a React app.
@@ -15,6 +15,8 @@ A simple, in-planning registration and login panel that uses MongoDB and JWT.
 - Create login and registration component's basic design
 - Outline authentication endpoints within Express backend app
 - Create model and schema for users
+- Add functionality to middlewares
+- Add functionality to endpoints: signIn, signOut, signUp
 
 ## Cloning and Running:
 
