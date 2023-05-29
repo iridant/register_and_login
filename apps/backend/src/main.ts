@@ -1,11 +1,16 @@
 import express from 'express';
 
 const mongoose = require("mongoose");
+const cors = require("cors")
 
 const config = require("./config/db.config");
+const authRouter = require("./routes/auth");
+
 const app = express();
 
-require("./startup/routes")(app);
+app.use(cors())
+app.use(express.json());
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send({message: 'Hello world!'});
