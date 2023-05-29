@@ -2,7 +2,6 @@ const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 
 async function signUp(req, res){
-
     bcrypt.hash(req.body.password, 10).then(function(hash) {
         User.create({ username: req.body.username, hash: hash });
     }).catch((err) => {
@@ -20,28 +19,31 @@ async function signUp(req, res){
 
 async function signIn(req, res){
     try{
-        let user = User.findOne({ username: req.body.username })
+        let user = await User.findOne({ username: req.body.username })
 
         if(user){
             bcrypt.compare(req.body.password, user.hash, function(err, result) {
-                if(!result){
+                if(result == false){
                     return res.status(500).send({
                         message: "Invalid username or password."
                     })
+                }else{
+
+                    ////////////////////
+                    // ISSUE JWT HERE //
+                    ////////////////////
+
+                    return res.status(200).send({
+                        message: "Success! Logging in..."
+                    })
                 }
-
-                return res.status(200).send({
-                    message: "Success! Logging in..."
-                })
             });
+        }else{
+            return res.status(500).send({
+                message: "Invalid username or password."
+            })
         }
-
-        return res.status(500).send({
-            message: "Invalid username or password."
-        })
     }catch(err){
-        console.error(err)
-
         return res.status(500).send({
             message: "Error logging in."
         })
