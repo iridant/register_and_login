@@ -1,5 +1,11 @@
 const User = require("../models/user.model");
 
+/*
+    This function will lookup the attempted registration username and verify that
+    an account with the same username doesn't exist, if the check is passed -
+    the middleware will continue with execution of the controller depending on the
+    middleware's order of execution.
+*/
 async function validateDuplicateUsername(req, res, next){
     try{
         let user = await User.findOne({username: req.body.username});
@@ -21,6 +27,13 @@ async function validateDuplicateUsername(req, res, next){
     }
 };
 
+/*
+    This function will compare the attempted registration password with a regex that
+    validates that the password contains at least 8 characters, an uppercase letter,
+    a lower case letter, a number, and a special character, if the check is passed -
+    the middleware will continue with execution of the controller depending on the
+    middleware's order of execution.
+*/
 async function validatePassword(req, res, next){
     try{
         if(!req.body.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)){

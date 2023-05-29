@@ -2,14 +2,22 @@ import express from 'express';
 
 const mongoose = require("mongoose");
 const cors = require("cors")
+const cookieSession = require("cookie-session");
 
-const config = require("./config/db.config");
+const config = require("./config/config");
 const authRouter = require("./routes/auth");
 
 const app = express();
 
 app.use(cors())
 app.use(express.json());
+app.use(cookieSession({
+    name: "login-and-register-cookies",
+    keys: [config.cookie_secret],
+    httpOnly: true,
+  })
+);
+
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
