@@ -1,21 +1,21 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import express from 'express';
-import * as path from 'path';
 
+const mongoose = require("mongoose");
+
+const config = require("./config/db.config");
 const app = express();
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+require("./startup/routes")(app);
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to backend!' });
+app.get('/', (req, res) => {
+  res.send({message: 'Hello world!'});
 });
 
 const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
+const server = app.listen(port,  async () => {
+  await mongoose.connect(`mongodb://${config.host}:${config.port}/`, config.options).then(function (result){
+    console.log("MongoDB connected.");
+    console.log(`Server now listening at http://localhost:${port}`);
+  })
+})
 server.on('error', console.error);
