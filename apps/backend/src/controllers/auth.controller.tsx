@@ -31,7 +31,7 @@ async function signIn(req, res){
 
                     ////////////////////
                     // ISSUE JWT HERE //
-                    ////////////////////
+                    ////////////////////, STORE SERVERSIDE IN COOKIE SESSION
 
                     return res.status(200).send({
                         message: "Success! Logging in..."
