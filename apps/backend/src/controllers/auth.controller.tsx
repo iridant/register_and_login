@@ -37,7 +37,7 @@ async function signIn(req, res){
         if(user){
             bcrypt.compare(req.body.password, user.hash, function(err, result) {
                 if(result == false){
-                    return res.status(500).send({
+                    return res.status(401).send({
                         message: "Invalid username or password."
                     });
                 }else{
@@ -56,7 +56,7 @@ async function signIn(req, res){
                 }
             });
         }else{
-            return res.status(500).send({
+            return res.status(401).send({
                 message: "Invalid username or password."
             });
         }
