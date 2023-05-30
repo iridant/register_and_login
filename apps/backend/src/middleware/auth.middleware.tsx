@@ -117,7 +117,7 @@ async function isUser(req, res, next){
         });
     }catch(err){
         return res.status(500).send({
-            message: "Could not verify moderator role!",
+            message: "Could not verify user role!",
         });
     }
 }
