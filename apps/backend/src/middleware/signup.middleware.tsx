@@ -8,16 +8,14 @@ const User = require("../models/user.model");
 */
 async function validateDuplicateUsername(req, res, next){
     try{
-        let user = await User.findOne({username: req.body.username});
-
-        if (user) {
-            return res.status(400).send({
-              message: "Failed! Username is already in use!"
-            });
-        }
-
-        next();
-        
+        User.findOne({username: req.body.username}).then((user) => {
+            if(user.username)
+                return res.status(400).send({
+                    message: "Failed! Username is already in use!"
+                });
+        }).catch((err) => {
+            next();
+        });
     }catch (error) {
         console.error(error);
 
@@ -36,7 +34,7 @@ async function validateDuplicateUsername(req, res, next){
 */
 async function validatePassword(req, res, next){
     try{
-        const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+        const passwordRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
 
         if(!passwordRegex.test(req.body.password)){
             return res.status(400).send({

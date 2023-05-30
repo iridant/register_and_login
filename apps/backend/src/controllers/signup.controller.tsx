@@ -10,7 +10,7 @@ const config = require("../config/config");
 */
 async function signUp(req, res){
     bcrypt.hash(req.body.password, 10).then(function(hash) {
-        User.create({ username: req.body.username, hash: hash });
+        User.create({ username: req.body.username, hash: hash }); // Does this async resolve since it's within a promise?
     }).catch((err) => {
         console.error(err)
 
@@ -31,11 +31,9 @@ async function signUp(req, res){
     If there is a match, a jsonwebtoken is assigned to the user session and the cookie is passed to the
     client through the cookie-session middleware.
 */
-async function signIn(req, res){
+async function signIn(req, res){ // What happens if someone signs in as two users at once?
     try{
-        let user = await User.findOne({ username: req.body.username });
-
-        if(user){
+        User.findOne({ username: req.body.username }).then((user) => {
             bcrypt.compare(req.body.password, user.hash, function(err, result) {
                 if(result == false){
                     return res.status(401).send({
@@ -58,11 +56,11 @@ async function signIn(req, res){
                     });
                 }
             });
-        }else{
+        }).catch((err) => {
             return res.status(401).send({
                 message: "Invalid username or password."
             });
-        }
+        })
     }catch(err){
         return res.status(500).send({
             message: "Error logging in."

@@ -46,15 +46,19 @@ async function verifyJWT(req, res, next){
 */
 async function isAdmin(req, res, next){
     try{
-        let user = await User.findById(req.userId);
-
-        if(user && user.roles.includes("admin")){
+        User.findById(req.userId).then((user) => {
+            if(!user.roles.includes("admin")){
+                return res.status(401).send({
+                    message: "Unauthorized!",
+                });
+            }
+            
             next();
-        }else{
-            return res.status(401).send({
-                message: "Unauthorized!",
+        }).catch((err) => {
+            return res.status(500).send({
+                message: "User not found!",
             });
-        }
+        });
     }catch(err){
         return res.status(500).send({
             message: "Could not verify admin role!",
@@ -70,15 +74,19 @@ async function isAdmin(req, res, next){
 */
 async function isModerator(req, res, next){
     try{
-        let user = await User.findById(req.userId);
+        User.findById(req.userId).then((user) => {
+            if(!["mod", "admin"].some(i => user.roles.includes(i))){
+                return res.status(401).send({
+                    message: "Unauthorized!",
+                });
+            }
 
-        if(user && ["mod", "admin"].some(i => user.roles.includes(i))){
             next();
-        }else{
-            return res.status(401).send({
-                message: "Unauthorized!",
+        }).catch((err) => {
+            return res.status(500).send({
+                message: "User not found!",
             });
-        }
+        });
     }catch(err){
         return res.status(500).send({
             message: "Could not verify moderator role!",
@@ -94,18 +102,22 @@ async function isModerator(req, res, next){
 */
 async function isUser(req, res, next){
     try{
-        let user = await User.findById(req.userId);
+        User.findById(req.userId).then((user) => {
+            if(!["user", "mod", "admin"].some(i => user.roles.includes(i))){
+                return res.status(401).send({
+                    message: "Unauthorized!",
+                });
+            }
 
-        if(user && ["user", "mod", "admin"].some(i => user.roles.includes(i))){
             next();
-        }else{
-            return res.status(401).send({
-                message: "Unauthorized!",
+        }).catch((err) => {
+            return res.status(500).send({
+                message: "User not found!",
             });
-        }
+        });
     }catch(err){
         return res.status(500).send({
-            message: "Could not verify user role!",
+            message: "Could not verify moderator role!",
         });
     }
 }
