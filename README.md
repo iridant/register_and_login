@@ -8,6 +8,8 @@ A simple, in-planning registration and login panel that uses MongoDB and JWT.
 - Add existing login session verification
 - ...
 - Hook up the backend to the frontend
+- "Finish"
+- Dockerize project
 
 ## DONE:
 - Create a monorepo with Nx that contains a React app.
