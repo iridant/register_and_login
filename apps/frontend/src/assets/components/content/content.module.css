@@ -1,0 +1,29 @@
+.container{
+    font-family: Arial;
+    line-height: 5px;
+
+    background-color: #242424;
+
+    box-sizing: border-box;
+    position: absolute;
+
+    width: 90vw;
+    height: 90vh;
+
+    overflow-y: auto;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+    top: 10vh;
+    left: 5vw;
+
+    margin-left: none;
+    margin-right: none;
+    padding: 20px;
+    padding-left: 40px;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+  }

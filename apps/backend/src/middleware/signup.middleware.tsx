@@ -52,11 +52,11 @@ async function validatePassword(req, res, next){
     next();
 }
 
-const verifySignup = {
+const signupMiddleware = {
     validateDuplicateUsername,
     validatePassword
 }
 
 export {}
 
-module.exports = verifySignup;
+module.exports = signupMiddleware;

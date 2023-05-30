@@ -83,7 +83,7 @@ async function signOut(req, res){
     }
 }
 
-const authController = {
+const signUpController = {
     signUp,
     signIn,
     signOut
@@ -91,4 +91,4 @@ const authController = {
 
 export {}
 
-module.exports = authController;
+module.exports = signUpController;
