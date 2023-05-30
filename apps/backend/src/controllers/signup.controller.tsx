@@ -28,7 +28,8 @@ async function signUp(req, res){
     This function will lookup a user by username, see if it exists and compare
     the inputted plaintext password with the stored password hash within the database for said user.
 
-    If there is a match, a jsonwebtoken is assigned to a serverside cookie and the user's login session is stored.
+    If there is a match, a jsonwebtoken is assigned to the user session and the cookie is passed to the
+    client through the cookie-session middleware.
 */
 async function signIn(req, res){
     try{
@@ -51,7 +52,9 @@ async function signIn(req, res){
 
                     return res.status(200).send({
                         message: "Success! Logging in...",
-                        user: user.username
+                        userId: user._id.toString(),
+                        user: user.username,
+                        roles: user.roles
                     });
                 }
             });
@@ -68,7 +71,7 @@ async function signIn(req, res){
 }
 
 /*
-    This function will delete the jwt cookie from the user's session serverside,
+    This function will delete the jwt cookie from the user's session,
     thus logging the user out.
 */
 async function signOut(req, res){
@@ -79,7 +82,9 @@ async function signOut(req, res){
           message: "You've been signed out!"
         });
     } catch (err) {
-        this.next(err);
+        return res.status(500).send({
+            message: "There was an error signing out."
+        });
     }
 }
 

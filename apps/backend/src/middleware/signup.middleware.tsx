@@ -36,7 +36,9 @@ async function validateDuplicateUsername(req, res, next){
 */
 async function validatePassword(req, res, next){
     try{
-        if(!req.body.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)){
+        const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$");
+
+        if(!passwordRegex.test(req.body.password)){
             return res.status(400).send({
                 message: "Failed! Password must have a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character!"
             });

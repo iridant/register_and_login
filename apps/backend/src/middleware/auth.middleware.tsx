@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const ObjectId = require('mongoose').Types.ObjectId; 
 
 const config = require("../config/config");
 
@@ -11,27 +12,109 @@ const config = require("../config/config");
     to the next middleware/controller depending on execution order.
 */
 async function verifyJWT(req, res, next){
-    let token = req.session.token;
+    try{
+        let token = req.session.token;
 
-    if (!token) {
-        return res.status(403).send({
-            message: "No token provided!",
+        if (!token) {
+            return res.status(403).send({
+                message: "No token provided!",
+            });
+        }
+    
+        jwt.verify(token, config.jwt_secret, (err, decoded) => {
+            if (err) {
+                return res.status(401).send({
+                    message: "Unauthorized!",
+                });
+            }
+            req.userId = decoded.id;
+            next();
         });
+    }catch(err){
+        return res.status(500).send({
+            message: "Error verifying token"
+        })
     }
+}
 
-    jwt.verify(token, config.jwt_secret, (err, decoded) => {
-        if (err) {
+/*
+    This function will attempt to retrieve the user by using the userId previously assigned by
+    verifyJWT(), afterwards the roles array is searched for the "admin" role.  If the role exists,
+    then the middleware will continue to the next method in the execution order.  Otherwise, the user
+    will be sent a response stating that they are unauthorized to access the endpoint.
+    
+*/
+async function isAdmin(req, res, next){
+    try{
+        let user = await User.findById(req.userId);
+
+        if(user && user.roles.includes("admin")){
+            next();
+        }else{
             return res.status(401).send({
                 message: "Unauthorized!",
             });
         }
-        req.userId = decoded.id;
-        next();
-    });
+    }catch(err){
+        return res.status(500).send({
+            message: "Could not verify admin role!",
+        });
+    }
+}
+
+/*
+    This function will attempt to retrieve the user by using the userId previously assigned by
+    verifyJWT(), afterwards the roles array is searched for the "mod" role or greater.  If the
+    role exists, then the middleware will continue to the next method in the execution order.
+    Otherwise, the user will be sent a response stating that they are unauthorized to access the endpoint.
+*/
+async function isModerator(req, res, next){
+    try{
+        let user = await User.findById(req.userId);
+
+        if(user && ["mod", "admin"].some(i => user.roles.includes(i))){
+            next();
+        }else{
+            return res.status(401).send({
+                message: "Unauthorized!",
+            });
+        }
+    }catch(err){
+        return res.status(500).send({
+            message: "Could not verify moderator role!",
+        });
+    }
+}
+
+/*
+    This function will attempt to retrieve the user by using the userId previously assigned by
+    verifyJWT(), afterwards the roles array is searched for the "user" role or greater.  If the
+    role exists, then the middleware will continue to the next method in the execution order.
+    Otherwise, the user will be sent a response stating that they are unauthorized to access the endpoint.
+*/
+async function isUser(req, res, next){
+    try{
+        let user = await User.findById(req.userId);
+
+        if(user && ["user", "mod", "admin"].some(i => user.roles.includes(i))){
+            next();
+        }else{
+            return res.status(401).send({
+                message: "Unauthorized!",
+            });
+        }
+    }catch(err){
+        return res.status(500).send({
+            message: "Could not verify user role!",
+        });
+    }
 }
 
 const authMiddleware = {
-    verifyJWT
+    verifyJWT,
+    isAdmin,
+    isModerator,
+    isUser
 }
 
 export {}
