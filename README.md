@@ -21,6 +21,8 @@ A simple, in-planning registration and login panel that uses MongoDB and JWT.
 - Create model and schema for users
 - Add functionality to middlewares
 - Add functionality to endpoints: signIn, signOut, signUp
+- Outline pages for access control testing at a later stage on frontend
+- Create auth service on frontend
 
 ## Cloning and Running:
 

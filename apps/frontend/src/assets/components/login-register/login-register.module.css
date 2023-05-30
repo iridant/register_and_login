@@ -1,17 +1,17 @@
 .logincontainer{
     font-family: Arial;
 
-    line-height: 5px;
+    line-height: auto;
 
     background-color: #303030;
 
     text-align: center;
 
+    box-sizing: border-box;
     position: absolute;
     width: fit-content;
-    margin: auto;
 
-    padding: 10px;
+    padding: 20px;
     top: 50%;
     left: 50%;
 
@@ -21,8 +21,10 @@
 }
 
 .text_input{
+    box-sizing: border-box;
     text-align: center;
     margin-bottom: 5px;
+    width: 100%;
 }
 
 .button{
