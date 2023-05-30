@@ -3,6 +3,7 @@
 # register_and_login
 A simple, in-planning registration and login panel that uses MongoDB and JWT.
 
+![image](https://github.com/iridant/register_and_login/assets/10984744/456376ce-c2df-44c3-955f-c83de5ef0e18)
 
 ## TODO:
 - Add existing login session verification
