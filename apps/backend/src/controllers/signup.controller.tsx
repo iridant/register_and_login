@@ -19,7 +19,7 @@ async function signUp(req, res){
         });
     });
 
-    return res.status(200).send({
+    return res.status(201).send({
         message: "Sign-up Success!"
     });
 }
@@ -46,13 +46,12 @@ async function signIn(req, res){ // What happens if someone signs in as two user
                          expiresIn: 86400, // 24 hours, in seconds
                     });
 
-                    req.session.token = token;
-
                     return res.status(200).send({
                         message: "Success! Logging in...",
                         userId: user._id.toString(),
                         user: user.username,
-                        roles: user.roles
+                        roles: user.roles,
+                        token: token // If I'm vulnerable to XSS then I've already lost.
                     });
                 }
             });

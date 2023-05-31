@@ -13,9 +13,9 @@ const signUp = function(username: String, password: String){
         username,
         password,
     }).then((response) => {
-        return response.data;
+        return response;
     }).catch((err) => {
-        return err.response.data;
+        return err.response;
     });
 };
 
@@ -24,22 +24,21 @@ const signIn = function(username: String, password: String){
         username,
         password,
     }).then((response) => {
-        if (response.data.user) {
+        if (response.data.user)
             localStorage.setItem("user", JSON.stringify(response.data));
-        }
 
-        return response.data;
+        return response;
     }).catch((err) => {
-        return err.response.data;
+        return err.response;
     });
 };
 
 const signOut = function(){
     localStorage.removeItem("user");
     return axios.post(API_URL + "signout").then((response) => {
-        return response.data;
+        return response;
     }).catch((err) => {
-        return err.response.data
+        return err.response;
     });
 };
 
@@ -47,11 +46,22 @@ const getCurrentUser = function(){
     return JSON.parse(localStorage.getItem("user") || "{}");
 };
 
+const verifyLogin = function(){
+    return axios.post(API_URL + "verifylogin", getCurrentUser()).then((response) => {
+        return response;
+    }).catch((err) => {
+        localStorage.removeItem("user");
+
+        return err.response
+    });
+}
+
 const authService = {
     signUp,
     signIn,
     signOut,
     getCurrentUser,
+    verifyLogin,
     roleOrder
 }
 

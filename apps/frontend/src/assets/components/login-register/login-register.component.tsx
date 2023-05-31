@@ -49,7 +49,7 @@ class LoginRegister extends React.Component<Props, State> {
     //AuthService.login("bob", "Allkjdlkjk!5") Leaving this in for debug purposes..
     authService.signIn(this.state.username, this.state.password).then((response) => {
       this.setState({isLoggedIn: authService.getCurrentUser().userId})
-      alert(response.message);
+      console.log(response);
     });
   }
 
@@ -58,7 +58,7 @@ class LoginRegister extends React.Component<Props, State> {
       alert("Passwords don't match!");
     }else{
       authService.signUp(this.state.username, this.state.password).then((response) => {
-        alert(response.message);
+        alert(response.data.message);
       });
     }
   }

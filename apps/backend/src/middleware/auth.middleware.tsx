@@ -13,7 +13,7 @@ const config = require("../config/config");
 */
 async function verifyJWT(req, res, next){
     try{
-        let token = req.session.token;
+        let token = req.body.token;
 
         if (!token) {
             return res.status(403).send({
