@@ -2,15 +2,18 @@ import React from "react";
 
 import styles from "./header.module.css";
 
+import authService from "../../services/auth.service";
+
+import Navbar from "../navbar/navbar.component"
+
 class Header extends React.Component {
   render() {
     return (
+      <header>
         <div className={styles.container}>
-            <nav className={styles.navbar}>
-              <a href="/">Home</a>
-              <a href="/admin">Admin</a>
-            </nav> 
+            <Navbar/>
         </div>
+      </header>
     )
   }
 }

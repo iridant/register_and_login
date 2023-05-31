@@ -9,12 +9,6 @@ router.post("/signin", signUpController.signIn);
 router.post("/signout", signUpController.signOut);
 router.post("/signup", [signupMiddleware.validateDuplicateUsername, signupMiddleware.validatePassword], signUpController.signUp);
 
-router.post("/verifylogin", [authMiddleware.verifyJWT], function(req, res){
-    return res.status(200).send({
-        message: "Login status verified."
-    });
-})
-
 export {}
 
 module.exports = router;

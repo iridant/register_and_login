@@ -8,18 +8,17 @@
     text-align: right;
 
     box-sizing: border-box;
-    position: absolute;
+
+    position: relative;
+    top: 0%;
+    left: 0%;
 
     width: 100%;
     height: 10vh;
 
-    margin: none;
+    margin: 0px;
     padding: 10px;
-    top: 0%;
-    left: 0%;
 }
-
-
 
 .logoimg{
     position: absolute;
@@ -27,20 +26,4 @@
 
     left: 10px;
     top: 10px;
-}
-
-
-
-.navbar{
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.navbar a{
-    color: white;
-    text-decoration: none;
-    padding: 5px;
-    margin: 1px;
 }

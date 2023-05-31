@@ -46,10 +46,9 @@ class LoginRegister extends React.Component<Props, State> {
   }
 
   doLogin(){
-    //AuthService.login("bob", "Allkjdlkjk!5") Leaving this in for debug purposes..
     authService.signIn(this.state.username, this.state.password).then((response) => {
       this.setState({isLoggedIn: authService.getCurrentUser().userId})
-      console.log(response);
+      alert(response.data.message)
     });
   }
 

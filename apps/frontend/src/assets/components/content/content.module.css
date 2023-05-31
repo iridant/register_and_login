@@ -5,23 +5,20 @@
     background-color: #242424;
 
     box-sizing: border-box;
-    position: absolute;
+    position: relative;
 
-    width: 90vw;
+    width: 80vw;
     height: 90vh;
 
     overflow-y: auto;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
-    
-    top: 10vh;
-    left: 5vw;
+    left: 10vw;
 
     margin-left: none;
     margin-right: none;
     padding: 20px;
-    padding-left: 40px;
 }
 
 .container::-webkit-scrollbar {

@@ -46,22 +46,11 @@ const getCurrentUser = function(){
     return JSON.parse(localStorage.getItem("user") || "{}");
 };
 
-const verifyLogin = function(){
-    return axios.post(API_URL + "verifylogin", getCurrentUser()).then((response) => {
-        return response;
-    }).catch((err) => {
-        localStorage.removeItem("user");
-
-        return err.response
-    });
-}
-
 const authService = {
     signUp,
     signIn,
     signOut,
     getCurrentUser,
-    verifyLogin,
     roleOrder
 }
 
