@@ -14,7 +14,7 @@ import PrivateRoute from "../assets/components/privateroute/privateroute.compone
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className={styles.main}>
         <Routes>
             <Route path='/' element={<PrivateRoute minimumRole="user"><Home/></PrivateRoute>}/>
             <Route path='/admin' element={<PrivateRoute minimumRole="admin"><Admin/></PrivateRoute>}/>

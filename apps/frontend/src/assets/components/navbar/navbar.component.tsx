@@ -6,18 +6,20 @@ import authService from "../../services/auth.service";
 
 class Navbar extends React.Component {
   render() {
+    const currentUser = authService.getCurrentUser();
+
     return (
         <nav className={styles.navbar}>
             <a href="/">Home</a>
-            <a href="/admin">Admin</a>
             <div className={styles.dropdown}>
                 <button className={styles.dropbtn}>
-                    {authService.getCurrentUser().user || ""}
+                    {currentUser && currentUser.user || ""}
                 </button>
                 <div className={styles.dropdowncontent}>
+                    {authService.isAdmin() && <a href="/admin">Admin</a>}
                     <a href="/account">Account</a>
                     <a href="/profile">Profile</a>
-                    <a href="/signout">Sign out</a>
+                    <a href="/signout">Sign-out</a>
                 </div>
             </div>
         </nav>

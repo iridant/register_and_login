@@ -50,9 +50,11 @@ async function signIn(req, res){ // What happens if someone signs in as two user
 
                     return res.status(200).send({
                         message: "Success! Logging in...",
-                        userId: user._id.toString(),
-                        user: user.username,
-                        roles: user.roles
+                        user: {
+                            userId: user._id.toString(),
+                            user: user.username,
+                            roles: user.roles
+                        }
                     });
                 }
             });

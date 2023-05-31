@@ -25,7 +25,7 @@ const signIn = function(username: String, password: String){
         password,
     }).then((response) => {
         if (response.data.user)
-            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("user", JSON.stringify(response.data.user));
 
         return response;
     }).catch((err) => {
@@ -43,14 +43,49 @@ const signOut = function(){
 };
 
 const getCurrentUser = function(){
-    return JSON.parse(localStorage.getItem("user") || "{}");
+    const userData = JSON.parse(localStorage.getItem("user") || "{}");
+
+    if(userData.user && userData.roles && userData.userId)
+        return userData;
+
+    return null;
 };
+
+const isAdmin = function(){
+    const currentUser = getCurrentUser();
+
+    if(currentUser)
+        return currentUser.roles.includes("admin")
+
+    return false;
+}
+
+const isMod = function(){
+    const currentUser = getCurrentUser();
+
+    if(currentUser)
+        return ["mod", "admin"].some(i => currentUser.roles.includes(i))
+
+    return false;
+}
+
+const isUser = function(){
+    const currentUser = getCurrentUser();
+
+    if(currentUser)
+        return ["user", "mod", "admin"].some(i => currentUser.roles.includes(i))
+
+    return false;
+}
 
 const authService = {
     signUp,
     signIn,
     signOut,
     getCurrentUser,
+    isAdmin,
+    isMod,
+    isUser,
     roleOrder
 }
 

@@ -1,1 +1,6 @@
 /* Your styles goes here. */
+
+.main{
+    max-width: 100vw;
+    overflow: hidden;
+}

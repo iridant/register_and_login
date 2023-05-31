@@ -22,7 +22,7 @@ class PrivateRoute extends React.Component<Props,State> {
     render() {
         const currentUser = authService.getCurrentUser();
 
-        if(!currentUser.userId)
+        if(!currentUser)
             return <Navigate to="/login"/>
 
         if(this.props.minimumRole && !this.hasMinimumRole(currentUser.roles || []))

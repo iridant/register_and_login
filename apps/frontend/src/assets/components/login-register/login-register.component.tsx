@@ -38,7 +38,7 @@ class LoginRegister extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
-    this.setState({isLoggedIn: authService.getCurrentUser().userId})
+    this.setState({isLoggedIn: authService.getCurrentUser()})
   }
 
   switchMode = (button: Object) =>{
