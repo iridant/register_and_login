@@ -22,6 +22,8 @@ class PrivateRoute extends React.Component<Props,State> {
     render() {
         const currentUser = authService.getCurrentUser();
 
+        // add sanity checks in here, authService
+
         if (!currentUser.userId) {
             return <Navigate to="/login"/>
         }
