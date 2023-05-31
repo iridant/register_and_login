@@ -1,8 +1,9 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 
 import styles from "./login-register.module.css";
 
-import AuthService from "../../services/auth.service";
+import authService from "../../services/auth.service";
 
 const StateEnum = {
   Login: 0,
@@ -16,6 +17,7 @@ interface State {
   username: String;
   password: String;
   passwordVerify: String;
+  isLoggedIn: any;
 }
 
 class LoginRegister extends React.Component<Props, State> {
@@ -27,11 +29,16 @@ class LoginRegister extends React.Component<Props, State> {
       mode: StateEnum.Login,
       username: "",
       password: "",
-      passwordVerify: ""
+      passwordVerify: "",
+      isLoggedIn: false
     }
 
     this.doLogin = this.doLogin.bind(this);
     this.doRegister = this.doRegister.bind(this);
+  }
+
+  componentDidMount(): void {
+    this.setState({isLoggedIn: authService.getCurrentUser().userId})
   }
 
   switchMode = (button: Object) =>{
@@ -40,7 +47,8 @@ class LoginRegister extends React.Component<Props, State> {
 
   doLogin(){
     //AuthService.login("bob", "Allkjdlkjk!5") Leaving this in for debug purposes..
-    AuthService.signIn(this.state.username, this.state.password).then((response) => {
+    authService.signIn(this.state.username, this.state.password).then((response) => {
+      this.setState({isLoggedIn: authService.getCurrentUser().userId})
       alert(response.message);
     });
   }
@@ -49,7 +57,7 @@ class LoginRegister extends React.Component<Props, State> {
     if(this.state.password != this.state.passwordVerify){
       alert("Passwords don't match!");
     }else{
-      AuthService.signUp(this.state.username, this.state.password).then((response) => {
+      authService.signUp(this.state.username, this.state.password).then((response) => {
         alert(response.message);
       });
     }
@@ -74,8 +82,12 @@ class LoginRegister extends React.Component<Props, State> {
   }
 
   render() {
-    const {mode} = this.state;
+    const {mode, isLoggedIn} = this.state;
 
+    if(isLoggedIn){
+      return <Navigate to="/"/>;
+    }
+  
     return (
       <div className={styles.logincontainer}>
         <h2>{mode ? "Register" : "Login"}</h2>

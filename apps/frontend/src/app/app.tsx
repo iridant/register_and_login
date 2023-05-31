@@ -9,13 +9,15 @@ import Admin from "../assets/pages/admin/admin.page"
 
 import { Route, Routes } from 'react-router';
 
+import PrivateRoute from "../assets/components/privateroute/privateroute.component"
+
 class App extends React.Component {
   render() {
     return (
       <div>
         <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/admin' element={<Admin/>}/>
+            <Route path='/' element={<PrivateRoute minimumRole="user"><Home/></PrivateRoute>}/>
+            <Route path='/admin' element={<PrivateRoute minimumRole="admin"><Admin/></PrivateRoute>}/>
             <Route path="/login" element={<LoginRegister/>}/>
         </Routes>
       </div>
