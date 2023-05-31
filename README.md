@@ -28,7 +28,7 @@ A simple, in-planning registration and login panel that uses MongoDB and JWT.
 - Add existing login session verification
 - Create auth service on frontend
 - Add access control to front-end
-- Partially fix access-control vulnerability introduced in [commit 3e3d445](https://github.com/iridant/register_and_login/commit/3e3d44563b4d6964f39d42eba219f6448c0b8231), users can still modify localStorage role to "admin" and always will be able to do so.  I will sanity check the user's role as well within the backend. While the code will still be downloaded, a user will not be able to see pages/components they are not supposed to regardless of them being populated with data or not.  These changes may be reverted in the longrun in favor of lowering the amount of API calls made to the backend (1/2 calls to API, and 1/2 database reads per access of a "protected" route.
+- Partially fix access-control vulnerability introduced in [commit 3e3d445](https://github.com/iridant/register_and_login/commit/3e3d44563b4d6964f39d42eba219f6448c0b8231), users can still modify localStorage role to "admin" and always will be able to do so.  I will sanity check the user's role as well within the backend. While the code will still be downloaded, a user will not be able to see pages/components they are not supposed to regardless of them being populated with data or not.  These changes may be reverted in the longrun in favor of lowering the amount of API calls made to the backend (1 call to API, and 1 database read per access of a "protected" route.
 
 ## Cloning and Running:
 
