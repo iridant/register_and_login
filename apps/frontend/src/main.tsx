@@ -9,6 +9,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+// This <StrictMode> tag makes multiple react functions be called twice for quality checks during development mode,
+// thus causing double calls to API for authorization checks.
 root.render(
   <StrictMode>
     <BrowserRouter>

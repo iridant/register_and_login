@@ -18,7 +18,6 @@ class Navbar extends React.Component {
                 <div className={styles.dropdowncontent}>
                     {authService.isAdmin() && <a href="/admin">Admin</a>}
                     <a href="/account">Account</a>
-                    <a href="/profile">Profile</a>
                     <a href="/signout">Sign-out</a>
                 </div>
             </div>

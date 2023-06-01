@@ -8,9 +8,7 @@ interface Props{
     children: React.ReactNode;
 }
 
-interface State{};
-
-class PrivateRoute extends React.Component<Props,State> {
+class PrivateRoute extends React.Component<Props> {
     constructor(props: Props){
         super(props);
     }
@@ -25,7 +23,7 @@ class PrivateRoute extends React.Component<Props,State> {
         if(!currentUser)
             return <Navigate to="/login"/>
 
-        if(this.props.minimumRole && !this.hasMinimumRole(currentUser.roles || []))
+        if((this.props.minimumRole && !this.hasMinimumRole(currentUser.roles || [])))
             return <Navigate to="/"/>
 
         return this.props.children;

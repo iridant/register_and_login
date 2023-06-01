@@ -78,6 +78,16 @@ const isUser = function(){
     return false;
 }
 
+const verifyLogin = function(){
+    return axios.post(API_URL + "verifylogin", getCurrentUser()).then((response) => {
+        return response;
+    }).catch((err) => {
+        localStorage.removeItem("user");
+
+        return err.response
+    });
+}
+
 const authService = {
     signUp,
     signIn,
@@ -86,6 +96,7 @@ const authService = {
     isAdmin,
     isMod,
     isUser,
+    verifyLogin,
     roleOrder
 }
 

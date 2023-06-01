@@ -10,7 +10,7 @@ const config = require("../config/config");
 */
 async function signUp(req, res){
     bcrypt.hash(req.body.password, 10).then(function(hash) {
-        User.create({ username: req.body.username, hash: hash }); // Does this async resolve since it's within a promise?
+        User.create({ username: req.body.username, hash: hash, joinDate: Date.now(), roles: ["user"] }); // Does this async resolve since it's within a promise?
     }).catch((err) => {
         console.error(err)
 
@@ -53,7 +53,9 @@ async function signIn(req, res){ // What happens if someone signs in as two user
                         user: {
                             userId: user._id.toString(),
                             user: user.username,
-                            roles: user.roles
+                            joinDate: user.joinDate,
+                            roles: user.roles,
+                            token: token
                         }
                     });
                 }
