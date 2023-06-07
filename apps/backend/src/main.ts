@@ -5,7 +5,8 @@ const cors = require("cors")
 const cookieSession = require("cookie-session");
 
 const config = require("./config/config");
-const authRouter = require("./routes/auth");
+const authRouter = require("./routes/auth.routes");
+const userRouter = require("./routes/user.routes");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieSession({
 );
 
 app.use('/auth', authRouter);
+app.use('/users', userRouter)
 
 app.get('/', (req, res) => {
   res.send({message: 'Hello world!'});
