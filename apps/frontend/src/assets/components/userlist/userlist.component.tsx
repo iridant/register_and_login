@@ -5,7 +5,7 @@ import styles from "./account.module.css";
 import authService from "../../services/auth.service";
 import axios from "axios";
 
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 interface State{
   users: Array<Object>
@@ -35,15 +35,18 @@ const datagridSx = {
 };
 
 const columns: GridColDef[] = [
-  { field: '_id', headerName: 'ID', flex: 0.30 },
+  { field: '_id', headerName: 'ID', flex: 0.20 },
   { field: 'username', headerName: 'Username', flex: 0.10 },
-  { field: 'hash', headerName: 'Hash', flex: 0.40 },
+  { field: 'hash', headerName: 'Hash', flex: 0.55 },
   {
     field: 'joinDate',
     headerName: 'Join Date',
-    type: 'number', // TODO: Add valueGetter to transform this to a Date.
+    type: 'date',
     width: 90,
-    flex: 0.20
+    flex: 0.15,
+    valueGetter: ({row}) => {
+      return new Date(row.joinDate);
+    }
   }
 ];
 
