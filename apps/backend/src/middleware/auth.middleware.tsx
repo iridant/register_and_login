@@ -8,8 +8,9 @@ const config = require("../config/config");
 /*
     This function will attempt to retrieve the user's JWT from the serverside cookies
     after, if a token was retrieved, it will be verified with the jwt library. If the
-    token is successfully verified, then the middleware will set some flags and continue
-    to the next middleware/controller depending on execution order.
+    token is successfully verified, then the existence of a user corresponding with the
+    token will be confirmed and the middleware will continue to the next middleware/controller 
+    depending on execution order.
 */
 async function verifyJWT(req, res, next){
     try{
@@ -27,8 +28,17 @@ async function verifyJWT(req, res, next){
                     message: "Unauthorized!",
                 });
             }
-            req.userId = decoded.id;
-            next();
+
+            User.findById(decoded.id).then((user) => {
+                if(!user){
+                    return res.status(410).send({
+                        message: "No user matching that token was found"
+                    })
+                }
+
+                req.userId = decoded.id;
+                next();
+            })
         });
     }catch(err){
         return res.status(500).send({

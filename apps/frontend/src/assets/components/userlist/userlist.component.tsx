@@ -65,6 +65,8 @@ class Userlist extends React.Component<{}, State> {
         "Authorization": authService.getCurrentUser().token || ""
     }}).then((res) => {
         this.setState({users: res.data.users})
+    }).catch((err) => {
+      console.log(err);
     })
   }
 
