@@ -20,7 +20,7 @@ router.get("/:id", [authMiddleware.verifyJWT, authMiddleware.isAdmin], function(
 })
 
 // This endpoint should update a specific user's password/account information (Update)
-router.put("/:id", [authMiddleware.verifyJWT, authMiddleware.isSelf], function(req, res){
+router.put("/:id", [authMiddleware.verifyJWT], function(req, res){
     res.status(200).send({
         message: "Hello"
     })
