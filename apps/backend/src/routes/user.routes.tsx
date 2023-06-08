@@ -3,32 +3,40 @@ const router = express.Router();
 
 const authMiddleware = require("../middleware/auth.middleware")
 
+const User = require("../models/user.model");
+
 
 // This endpoint should retrieve data about a specific user. (Read)
-router.get("/:id", [authMiddleware.isAdmin], function(req, res){
+router.get("/:id", [authMiddleware.verifyJWT, authMiddleware.isAdmin], function(req, res){
     res.status(200).send({
         message: "Hello"
     })
 })
 
 // This endpoint should update a specific user's password/account information (Update)
-router.put("/:id", [authMiddleware.isSelf], function(req, res){
+router.put("/:id", [authMiddleware.verifyJWT, authMiddleware.isSelf], function(req, res){
     res.status(200).send({
         message: "Hello"
     })
 })
 
 // This endpoint should remove a specific user from the database. (Delete)
-router.delete("/:id", [authMiddleware.isAdmin], function(req, res){
+router.delete("/:id", [authMiddleware.verifyJWT, authMiddleware.isAdmin], function(req, res){
     res.status(200).send({
         message: "Hello"
     })
 })
 
 // This endpoint should retrieve ALL users from the database. (Read)
-router.get("", [authMiddleware.isAdmin], function(req, res){
-    res.status(200).send({
-        message: "Hi"
+router.get("", [authMiddleware.verifyJWT, authMiddleware.isAdmin], function(req, res){
+    User.find().then((users) => {
+        res.status(200).send({
+            users: users
+        })
+    }).catch((err) => {
+        res.status(500).send({
+            message: "Error retrieving user list from the database."
+        })
     })
 })
 

@@ -13,7 +13,7 @@ const config = require("../config/config");
 */
 async function verifyJWT(req, res, next){
     try{
-        let token = req.body.token;
+        let token = req.headers.authorization;
 
         if (!token) {
             return res.status(403).send({
@@ -46,6 +46,7 @@ async function verifyJWT(req, res, next){
 */
 async function isAdmin(req, res, next){
     try{
+        console.log(req)
         User.findById(req.userId).then((user) => {
             if(!user.roles.includes("admin")){
                 return res.status(401).send({

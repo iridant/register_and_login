@@ -79,7 +79,11 @@ const isUser = function(){
 }
 
 const verifyLogin = function(){
-    return axios.post(API_URL + "verifylogin", getCurrentUser()).then((response) => {
+    const token = getCurrentUser() != null ? getCurrentUser().token : ""
+
+    return axios.post(API_URL + "verifylogin", {}, {headers: {
+        "Authorization": token
+    }}).then((response) => {
         return response;
     }).catch((err) => {
         localStorage.removeItem("user");

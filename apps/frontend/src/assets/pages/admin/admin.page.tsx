@@ -3,6 +3,7 @@ import React from 'react';
 
 import SiteHeader from "../../components/header/header.component";
 import Content from "../../components/content/content.component";
+import Userlist from '../../components/userlist/userlist.component';
 
 class Admin extends React.Component {
   render() {
@@ -11,7 +12,9 @@ class Admin extends React.Component {
         <SiteHeader/>
 
         <Content>
-            <p>You can see this if you are an admin.</p>
+            <p>You can see this page if you are an admin.</p>
+
+            <Userlist/>
         </Content>
       </div>
     );
