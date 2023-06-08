@@ -133,21 +133,11 @@ async function isUser(req, res, next){
     }
 }
 
-/*
-    This middleware should validate whether or not a user requesting an endpoint is themselves or not
-    in order to prevent a user from changing another user's password.  This middleware may or may not
-    be deprecated in the future.
-*/
-async function isSelf(req, res, next){
-    next();
-}
-
 const authMiddleware = {
     verifyJWT,
     isAdmin,
     isModerator,
-    isUser,
-    isSelf
+    isUser
 }
 
 export {}
